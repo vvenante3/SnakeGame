@@ -16,7 +16,23 @@ const snake = [ //posicionamento dos elementos da snake
     { x:300, y:270 },
 ];
 
+const apple = {
+    x: 90,
+    y: 90,
+    color: "red"
+}
+
 let direcao, loopId;
+
+const drawApple = () => { //CRIAÇÃO DA MAÇÃ
+    const { x,y,color } = apple;
+
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 40;
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, size, size);
+    ctx.shadowBlur = 0;
+}
 
 const drawSnake = () => {
     ctx.fillStyle = "#56bd26";
@@ -77,6 +93,7 @@ const loop = () => { //A FUNÇÃO LOOP FARÁ O JOGO FUNCIONAR
 
     ctx.clearRect(0, 0, 600, 600); //"limpando o caminho já percorrido da snake"
     drawGrid();
+    drawApple();
     moverSnake(); //movimentação da snake
     drawSnake(); // aqui está sendo feito o "novo" desenho que está sendo percorrido a snake
 
