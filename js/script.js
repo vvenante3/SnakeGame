@@ -9,6 +9,8 @@ const ctx = canvas.getContext("2d");
 
 // A lógica utilizada para mover o objeto (snake) será em forma de Array, onde o último elemento será posicionado para o primeiro elemento.
 
+const h1 = document.querySelector("h1");
+
 const size = 30;
 const snake = [ //posicionamento dos elementos da snake
     { x:240, y:270 },
@@ -16,7 +18,18 @@ const snake = [ //posicionamento dos elementos da snake
     { x:300, y:270 },
 ];
 
-const apple = {
+const randomNumber = (min, max) => {
+    return Math.round(Math.random() * (max - min) + min) //seleciona um numero randomico >0 e <1]
+}
+
+const randomPosition = () => {
+    const number = randomNumber(0, canvas.width - size); // criar numero aleatorio
+    return Math.round(number / 30) * 30;
+}
+
+h1.innerText = randomPosition();
+
+const apple = { //POSICIONAMENTO MAÇA
     x: 90,
     y: 90,
     color: "red"
@@ -33,6 +46,8 @@ const drawApple = () => { //CRIAÇÃO DA MAÇÃ
     ctx.fillRect(x, y, size, size);
     ctx.shadowBlur = 0;
 }
+
+
 
 const drawSnake = () => {
     ctx.fillStyle = "#56bd26";
@@ -70,7 +85,7 @@ if (!direcao) return; //snake sem direção
     }
 
 const drawGrid = () => {
-    ctx.lineWidth = 0.2;
+    ctx.lineWidth = 0.1;
     ctx.strokeStyle = "white";
 
     for(let i = 30; i < canvas.width; i+=30){
