@@ -16,7 +16,7 @@ const snake = [
     { x:330, y:280 }
 ];
 
-let direcao;
+let direcao, loopId;
 
 const drawSnake = () => {
     ctx.fillStyle = "#56bd26";
@@ -52,14 +52,18 @@ if (!direcao) return; //snake sem direção
 
     snake.shift(); //remove o primeiro elemento da array
     }
-
-setInterval(() => {
-
+const loop = () => { //A FUNÇÃO LOOP FARÁ O JOGO FUNCIONAR
+    clearInterval(loopId);
+    
     ctx.clearRect(0, 0, 600, 600); //"limpando o caminho já percorrido da snake"
-
     moverSnake(); //movimentação da snake
     drawSnake(); // aqui está sendo feito o "novo" desenho que está sendo percorrido a snake
 
-},300);
+    let loopId = setTimeout(() => {
+        loop()
+    },300)
+}
+
+loop();
 
 
