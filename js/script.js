@@ -16,6 +16,8 @@ const snake = [
     { x:330, y:280 }
 ];
 
+let direcao;
+
 const drawSnake = () => {
     ctx.fillStyle = "#56bd26";
     
@@ -30,4 +32,34 @@ const drawSnake = () => {
 
 }
 
-drawSnake();
+const moverSnake = () => { // FUNÇÃO QUE IRÁ MOVIMENTAR A SNAKE
+if (!direcao) return; //snake sem direção
+    
+    const head = snake[snake.length -1]; //passar o primeiro elemento da snake
+
+    if(direcao == "right") {
+        snake.push({ x: head.x + size, y: head.y }); //movimentação para a direita
+    }
+    if(direcao == "left") {
+        snake.push({ x: head.x - size, y: head.y }); //movimentação para a esquerda
+    }
+    if(direcao == "down") {
+        snake.push({ x: head.x, y: head.y + size }); //movimentação para cima
+    }
+    if(direcao == "up") {
+        snake.push({ x: head.x, y: head.y - size }); //movimentação para baixo
+    }
+
+    snake.shift(); //remove o primeiro elemento da array
+    }
+
+setInterval(() => {
+
+    ctx.clearRect(0, 0, 600, 600); //"limpando o caminho já percorrido da snake"
+
+    moverSnake(); //movimentação da snake
+    drawSnake(); // aqui está sendo feito o "novo" desenho que está sendo percorrido a snake
+
+},300);
+
+
