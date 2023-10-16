@@ -10,10 +10,10 @@ const ctx = canvas.getContext("2d");
 // A lógica utilizada para mover o objeto (snake) será em forma de Array, onde o último elemento será posicionado para o primeiro elemento.
 
 const size = 30;
-const snake = [
-    { x:280, y:280 },
-    { x:310, y:280 },
-    { x:330, y:280 }
+const snake = [ //posicionamento dos elementos da snake
+    { x:240, y:270 },
+    { x:270, y:270 },
+    { x:300, y:270 },
 ];
 
 let direcao, loopId;
@@ -52,18 +52,58 @@ if (!direcao) return; //snake sem direção
 
     snake.shift(); //remove o primeiro elemento da array
     }
+
+const drawGrid = () => {
+    ctx.lineWidth = 0.2;
+    ctx.strokeStyle = "white";
+
+    for(let i = 30; i < canvas.width; i+=30){
+        //grid's verticais
+        ctx.beginPath()
+        ctx.lineTo(i, 0);
+        ctx.lineTo(i, 600);
+        ctx.stroke()
+        //grid's horizontais
+        ctx.beginPath()
+        ctx.lineTo(0, i);
+        ctx.lineTo(600, i); 
+        ctx.stroke()
+    }  
+}
+drawGrid();
+
 const loop = () => { //A FUNÇÃO LOOP FARÁ O JOGO FUNCIONAR
     clearInterval(loopId);
-    
+
     ctx.clearRect(0, 0, 600, 600); //"limpando o caminho já percorrido da snake"
+    drawGrid();
     moverSnake(); //movimentação da snake
     drawSnake(); // aqui está sendo feito o "novo" desenho que está sendo percorrido a snake
 
-    let loopId = setTimeout(() => {
-        loop()
-    },300)
+    loopId = setTimeout(() => {
+        loop();
+    }, 300);
 }
 
 loop();
+
+// document.addEventListener("keydown", (event) => {   //IDENTIFICA AS TECLAS QUE SÃO SELECIONADAS NO TECLADO
+//     console.log(event.key);
+// })
+
+document.addEventListener("keydown", ({key }) => { //MOVIMENTAÇÕES COM AS TECLAS (direita, esquerda, baixo e cima)
+    if( key == "ArrowRight" && direcao != "left"){ //direita
+        direcao = "right";
+    }
+    if( key == "ArrowLeft" && direcao != "right"){ //esquerda
+        direcao = "left";
+    }
+    if( key == "ArrowDown" && direcao != "up"){ //baixo
+        direcao = "down";
+    }
+    if( key == "ArrowUp" && direcao != "down"){ //cima
+        direcao = "up"; 
+    }
+});
 
 
