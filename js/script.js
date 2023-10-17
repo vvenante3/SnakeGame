@@ -100,11 +100,12 @@ const drawGrid = () => {
 drawGrid();
 
 const checkEat = () => { // FUNÇÃO QUE FARÁ A SNAKE COMER A MAÇÃ E AUMENTAR SEU CORPO(elemento)
-    const head = snake[snake.length -1];
-    audio.play; //insere o som quando a snake passa pela maça
+    const head = snake[snake.length -1]
+     //insere o som quando a snake passa pela maça
 
     if(head.x == apple.x && head.y == apple.y){
         snake.push(head);
+        audio.play();
 
         let x = randomPosition();   //posição que irá surgir a cobra
         let y = randomPosition();
