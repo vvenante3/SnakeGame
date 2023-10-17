@@ -18,7 +18,8 @@ const buttonPlay = document.querySelector(".btnPlay");
 const audio = new Audio('../audio/audio.mp3'); //FUNÇÃO QUE INSERE SOM QUANDO A SNAKE PASSA PELA MAÇÃ
 
 const size = 30;
-const snake = [ //posicionamento dos elementos da snake
+
+let snake = [ //posicionamento dos elementos da snake
     { x:240, y:270 },
     { x:270, y:270 },
     { x:300, y:270 },
@@ -150,7 +151,7 @@ const gameOver = () => {
     direcao = undefined;
 
     menu.style.display = "flex";
-    finalScore.innerText - score;
+    finalScore.innerText = score.innerText;
     canvas.style.filter = "blur(2px)";
 }
 
@@ -191,4 +192,14 @@ document.addEventListener("keydown", ({ key }) => { //MOVIMENTAÇÕES COM AS TEC
     }
 });
 
+buttonPlay.addEventListener("click", () => {
+    score.innerText = "00"
+    menu.style.display = "none"
+    canvas.style.filter = "none";
 
+    snake = [ 
+    { x:240, y:270 },
+    { x:270, y:270 },
+    { x:300, y:270 },
+    ]
+})
