@@ -9,8 +9,6 @@ const ctx = canvas.getContext("2d");
 
 // A lógica utilizada para mover o objeto (snake) será em forma de Array, onde o último elemento será posicionado para o primeiro elemento.
 
-const h1 = document.querySelector("h1");
-
 const size = 30;
 const snake = [ //posicionamento dos elementos da snake
     { x:240, y:270 },
@@ -27,11 +25,9 @@ const randomPosition = () => {
     return Math.round(number / 30) * 30;
 }
 
-h1.innerText = randomPosition();
-
 const apple = { //POSICIONAMENTO MAÇA
-    x: 90,
-    y: 90,
+    x: randomPosition(),
+    y: randomPosition(),
     color: "red"
 }
 
@@ -46,8 +42,6 @@ const drawApple = () => { //CRIAÇÃO DA MAÇÃ
     ctx.fillRect(x, y, size, size);
     ctx.shadowBlur = 0;
 }
-
-
 
 const drawSnake = () => {
     ctx.fillStyle = "#56bd26";
@@ -103,6 +97,24 @@ const drawGrid = () => {
 }
 drawGrid();
 
+const checkEat = () => { // FUNÇÃO QUE FARÁ A SNAKE COMER A MAÇÃ E AUMENTAR SEU CORPO(elemento)
+    const head = snake[snake.length -1];
+
+    if(head.x == apple.x && head.y == apple.y){
+        snake.push(head);
+
+        let x = randomPosition();   //posição que irá surgir a cobra
+        let y = randomPosition();
+
+        while(snake.find((position) => position.x == x && position.y == y)){ //Esta condicional foi criada para que a maça não surja em cima de um dos elementos da cobra. Caso o numero aleatório (posição) dê em um elemento da snake, ele será sorteado novamente
+            x = randomPosition();
+            y = randomPosition();
+        }
+        apple.x = x;
+        apple.y = y;
+    }
+}
+
 const loop = () => { //A FUNÇÃO LOOP FARÁ O JOGO FUNCIONAR
     clearInterval(loopId);
 
@@ -111,6 +123,7 @@ const loop = () => { //A FUNÇÃO LOOP FARÁ O JOGO FUNCIONAR
     drawApple();
     moverSnake(); //movimentação da snake
     drawSnake(); // aqui está sendo feito o "novo" desenho que está sendo percorrido a snake
+    checkEat();
 
     loopId = setTimeout(() => {
         loop();
@@ -123,7 +136,7 @@ loop();
 //     console.log(event.key);
 // })
 
-document.addEventListener("keydown", ({key }) => { //MOVIMENTAÇÕES COM AS TECLAS (direita, esquerda, baixo e cima)
+document.addEventListener("keydown", ({ key }) => { //MOVIMENTAÇÕES COM AS TECLAS (direita, esquerda, baixo e cima)
     if( key == "ArrowRight" && direcao != "left"){ //direita
         direcao = "right";
     }
