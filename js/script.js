@@ -9,6 +9,12 @@ const ctx = canvas.getContext("2d");
 
 // A lógica utilizada para mover o objeto (snake) será em forma de Array, onde o último elemento será posicionado para o primeiro elemento.
 
+//MENU PRINCIPAL (GAME OVER)
+const score = document.querySelector(".valorScore");
+const finalScore = document.querySelector(".finalScore > span"); //busca a class finalScore e a tag span dentro dele
+const menu = document.querySelector("menu");
+const buttonPlay = document.querySelector(".btnPlay");
+
 const audio = new Audio('../audio/audio.mp3'); //FUNÇÃO QUE INSERE SOM QUANDO A SNAKE PASSA PELA MAÇÃ
 
 const size = 30;
@@ -17,6 +23,10 @@ const snake = [ //posicionamento dos elementos da snake
     { x:270, y:270 },
     { x:300, y:270 },
 ];
+
+const aumentarScore = () => {
+    score.innerText = +score.innerText + 10; //colocar apenas o "+"" funciona como um "parseInt"
+}
 
 const randomNumber = (min, max) => {
     return Math.round(Math.random() * (max - min) + min) //seleciona um numero randomico >0 e <1]
@@ -104,6 +114,7 @@ const checkEat = () => { // FUNÇÃO QUE FARÁ A SNAKE COMER A MAÇÃ E AUMENTAR
      //insere o som quando a snake passa pela maça
 
     if(head.x == apple.x && head.y == apple.y){
+        aumentarScore();
         snake.push(head);
         audio.play();
 
@@ -131,7 +142,7 @@ const colisao = () => {
     })
 
     if(wallColisao || colisaoSnake){
-        alert("GAMER OVER!");
+        gameOver();
     }
 }
 
