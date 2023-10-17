@@ -9,6 +9,8 @@ const ctx = canvas.getContext("2d");
 
 // A lógica utilizada para mover o objeto (snake) será em forma de Array, onde o último elemento será posicionado para o primeiro elemento.
 
+const audio = new Audio('../audio/audio.mp3'); //FUNÇÃO QUE INSERE SOM QUANDO A SNAKE PASSA PELA MAÇÃ
+
 const size = 30;
 const snake = [ //posicionamento dos elementos da snake
     { x:240, y:270 },
@@ -99,6 +101,7 @@ drawGrid();
 
 const checkEat = () => { // FUNÇÃO QUE FARÁ A SNAKE COMER A MAÇÃ E AUMENTAR SEU CORPO(elemento)
     const head = snake[snake.length -1];
+    audio.play; //insere o som quando a snake passa pela maça
 
     if(head.x == apple.x && head.y == apple.y){
         snake.push(head);
