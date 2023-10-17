@@ -38,9 +38,10 @@ canvas {
     display: none;
     flex-direction: column;
     align-items: center;
+    z-index: 1; /* trazer o menu para frente */
 }
 
-.game-over{
+.gameOver{
     text-transform: uppercase;
     font-weight: 700;
     font-size: 3rem;

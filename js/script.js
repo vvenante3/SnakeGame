@@ -12,7 +12,7 @@ const ctx = canvas.getContext("2d");
 //MENU PRINCIPAL (GAME OVER)
 const score = document.querySelector(".valorScore");
 const finalScore = document.querySelector(".finalScore > span"); //busca a class finalScore e a tag span dentro dele
-const menu = document.querySelector("menu");
+const menu = document.querySelector(".menu");
 const buttonPlay = document.querySelector(".btnPlay");
 
 const audio = new Audio('../audio/audio.mp3'); //FUNÇÃO QUE INSERE SOM QUANDO A SNAKE PASSA PELA MAÇÃ
@@ -148,6 +148,10 @@ const colisao = () => {
 
 const gameOver = () => {
     direcao = undefined;
+
+    menu.style.display = "flex";
+    finalScore.innerText - score;
+    canvas.style.filter = "blur(2px)";
 }
 
 const loop = () => { //A FUNÇÃO LOOP FARÁ O JOGO FUNCIONAR
