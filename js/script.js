@@ -118,6 +118,26 @@ const checkEat = () => { // FUNÇÃO QUE FARÁ A SNAKE COMER A MAÇÃ E AUMENTAR
     }
 }
 
+const colisao = () => {
+    const head = snake[snake.length -1];
+    const canvasLimit = canvas.width - size;
+    const pescocoIndex = snake.length -2; //faz com que ignore a cabeça da snake;
+
+    const wallColisao = head.x < 0 || head.x > canvasLimit || head.y < 0 || head.y > canvasLimit; //colisão pelas extremidades
+
+    const colisaoSnake = snake.find((position, index) => {
+        return index <pescocoIndex && position.x == head.x && position.y == head.y
+    })
+
+    if(wallColisao || colisaoSnake){
+        alert("GAMER OVER!");
+    }
+}
+
+const gameOver = () => {
+    direcao = undefined;
+}
+
 const loop = () => { //A FUNÇÃO LOOP FARÁ O JOGO FUNCIONAR
     clearInterval(loopId);
 
@@ -127,6 +147,7 @@ const loop = () => { //A FUNÇÃO LOOP FARÁ O JOGO FUNCIONAR
     moverSnake(); //movimentação da snake
     drawSnake(); // aqui está sendo feito o "novo" desenho que está sendo percorrido a snake
     checkEat();
+    colisao();
 
     loopId = setTimeout(() => {
         loop();
